@@ -20,16 +20,16 @@ LOOKBACK = 20
 
 def split_data():
     total_data_size = len(high) - LOOKBACK
-    data = np.zeros((total_data_size, 2, LOOKBACK))
+    data = np.zeros((total_data_size, LOOKBACK, 2))
     y = np.zeros(total_data_size)
 
     for index in range(len(high) - LOOKBACK):
-        data[index, 0] = close[index: index + LOOKBACK]
-        data[index, 1] = high[index: index + LOOKBACK]
+        data[index, :, 0] = close[index: index + LOOKBACK]
+        data[index, :, 1] = high[index: index + LOOKBACK]
         y[index] = close[index + LOOKBACK]
 
-    test_set_size = int(np.round(0.2 * data.shape[0]));
-    train_set_size = data.shape[0] - (test_set_size);
+    test_set_size = int(np.round(0.2 * data.shape[0]))
+    train_set_size = data.shape[0] - test_set_size
 
     x_train = data[:train_set_size]
     y_train = y[:train_set_size]
