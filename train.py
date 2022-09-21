@@ -14,7 +14,7 @@ def train():
 
     start_time = time.time()
 
-    for t in range(500):
+    for t in range(100):
         y_train_pred = model(x_train)
         loss = criterion(y_train_pred, y_train)
         print("Epoch ", t, "MSE: ", loss.item())

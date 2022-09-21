@@ -20,8 +20,6 @@ def test():
     y_test_pred = model(x_test)
     loss = criterion(y_test_pred, y_test)
     print(f"Loss: {loss}")
-    y_test = y_test[:,0]
-    y_test_pred = y_test_pred[:,0]
     plotter.plot(y_test.detach().numpy(), y_test_pred.detach().numpy())
 
 
