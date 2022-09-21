@@ -9,22 +9,21 @@ data = pd.read_csv("data/amazon.csv")
 close = data[['Close']].to_numpy()
 close_scaler = MinMaxScaler(feature_range=(-1, 1))
 close = close_scaler.fit_transform(close)
-#
-# high = data[['High']]
-# high_scaler = MinMaxScaler(feature_range=(-1, 1))
-# high = high_scaler.fit_transform(high['High'].values.reshape(-1,1))
-# high = high.to_numpy().reshape(-1)
+
+high = data[['Close']].to_numpy()
+high_scaler = MinMaxScaler(feature_range=(-1, 1))
+high = high_scaler.fit_transform(high)
 
 LOOKBACK = 10
 
 def split_data():
     total_data_size = len(close) - LOOKBACK
-    data = np.zeros((total_data_size, LOOKBACK, 1))
+    data = np.zeros((total_data_size, LOOKBACK, 2))
     y = np.zeros(total_data_size)
 
     for index in range(total_data_size):
-        data[index, :] = close[index: index + LOOKBACK]
-        #data[index, :, 1] = high[index: index + LOOKBACK]
+        data[index, :, 0] = close[index: index + LOOKBACK][0]
+        data[index, :, 1] = high[index: index + LOOKBACK][0]
         y[index] = close[index + LOOKBACK][0]
 
     test_set_size = int(np.round(0.2 * data.shape[0]))
